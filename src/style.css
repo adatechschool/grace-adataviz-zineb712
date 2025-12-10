@@ -75,10 +75,163 @@ body::before {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    display: none;
+}
+
+#app.active {
+    display: block;
 }
 
 /* ============================================
-   HEADER AVEC ÉMOJIS
+   PAGE D'ACCUEIL SIMPLIFIÉE
+   ============================================ */
+.welcome-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(ellipse at 20% 20%, 
+            rgba(40, 100, 60, 0.9) 0%,
+            rgba(30, 80, 50, 0.95) 40%,
+            rgba(20, 60, 40, 1) 100%
+        ),
+        linear-gradient(135deg, 
+            rgba(46, 125, 50, 0.8) 0%,
+            rgba(56, 142, 60, 0.9) 50%,
+            rgba(67, 160, 71, 0.8) 100%
+        );
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.8s ease;
+    overflow: hidden;
+}
+
+.welcome-page.hidden {
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.welcome-container {
+    text-align: center;
+    max-width: 700px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.welcome-content h1 {
+    color: #FFD700;
+    font-size: 2.8rem;
+    margin-bottom: 25px;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.welcome-text {
+    color: #E0E0E0;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* Arbres décoratifs */
+.hero-image {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin: 40px 0;
+}
+
+.tree-icon {
+    font-size: 5rem;
+    animation: treeFloat 4s infinite ease-in-out;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.tree-icon:nth-child(1) { 
+    animation-delay: 0s; 
+    color: #4CAF50; 
+}
+.tree-icon:nth-child(2) { 
+    animation-delay: 0.5s; 
+    color: #2E7D32; 
+}
+.tree-icon:nth-child(3) { 
+    animation-delay: 1s; 
+    color: #1B5E20; 
+}
+
+@keyframes treeFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* Bouton principal */
+.btn-enter {
+    padding: 18px 45px;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #333;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 30px auto;
+    box-shadow: 
+        0 8px 25px rgba(255, 215, 0, 0.4),
+        0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: pulse 2s infinite;
+}
+
+.btn-enter:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 
+        0 15px 35px rgba(255, 215, 0, 0.6),
+        0 8px 25px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #FFA500, #FF8C00);
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+/* Indice */
+.hint {
+    margin-top: 25px;
+    text-align: center;
+    animation: fadeInOut 3s infinite;
+}
+
+.hint span {
+    color: #FFEAA7;
+    font-size: 1rem;
+    opacity: 0.8;
+    font-style: italic;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* ============================================
+   HEADER PAGE PRINCIPALE
    ============================================ */
 header {
     text-align: center;
@@ -149,39 +302,6 @@ header > p {
     align-items: center;
     gap: 20px;
     flex-wrap: wrap;
-}
-
-/* Animation pour les émojis dans le sous-titre */
-header > p span:nth-child(1) { /* 📊 */
-    animation: bounce 2s infinite;
-}
-header > p span:nth-child(2) { /* | */
-    opacity: 0.7;
-}
-header > p span:nth-child(3) { /* 🌿 */
-    animation: wiggle 2.5s infinite;
-}
-header > p span:nth-child(4) { /* | */
-    opacity: 0.7;
-}
-header > p span:nth-child(5) { /* 💚 */
-    animation: pulse 2s infinite;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
-
-@keyframes wiggle {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(-5deg); }
-    75% { transform: rotate(5deg); }
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.2); opacity: 0.8; }
 }
 
 /* ============================================
@@ -491,22 +611,19 @@ header > p span:nth-child(5) { /* 💚 */
 /* ============================================
    FOOTER
    ============================================ */
-/* ============================================
-   FOOTER - MODIFIÉ POUR MEILLEURE VISIBILITÉ
-   ============================================ */
 footer {
     text-align: center;
     padding: 25px;
     margin-top: 50px;
-    color: white; /* CHANGÉ: blanc au lieu de #666 */
-    border-top: 1px solid rgba(255, 255, 255, 0.2); /* CHANGÉ: bordure plus visible */
-    background: rgba(30, 80, 50, 0.3); /* AJOUTÉ: fond semi-transparent */
+    color: white;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(30, 80, 50, 0.3);
     border-radius: var(--border-radius);
-    backdrop-filter: blur(5px); /* AJOUTÉ: effet de flou élégant */
+    backdrop-filter: blur(5px);
 }
 
 footer a {
-    color: #FFEAA7; /* CHANGÉ: couleur dorée claire */
+    color: #FFEAA7;
     text-decoration: none;
     font-weight: 600;
     padding: 2px 6px;
@@ -516,353 +633,23 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
-    background-color: rgba(255, 234, 167, 0.15); /* AJOUTÉ: fond au survol */
-    color: #FFD700; /* CHANGÉ: doré plus vif au survol */
+    background-color: rgba(255, 234, 167, 0.15);
+    color: #FFD700;
 }
 
-/* Option: Pour rendre le texte encore plus lisible */
 footer p {
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* AJOUTÉ: ombre portée */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     font-weight: 500;
     margin-bottom: 10px;
 }
-/* ============================================
-   PAGE D'ACCUEIL AVEC LAMPE
-   ============================================ */
-.welcome-page {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* 🌳 FORÊT LUMINEUSE ET ACCUEILLANTE 🌳 */
-    background: 
-        /* Couche 1: Base forestière plus claire */
-        radial-gradient(ellipse at 20% 20%, 
-            rgba(40, 100, 60, 0.85) 0%,        /* PLUS CLAIR */
-            rgba(30, 80, 50, 0.90) 40%,       /* PLUS CLAIR */
-            rgba(20, 60, 40, 0.95) 100%       /* PLUS CLAIR */
-        ),
-        /* Couche 2: Texture de feuillage (opacité réduite) */
-        url('https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=2070&q=80&blend=2E7D32&blend-mode=overlay&opacity=0.7'),
-        /* Couche 3: Dégradé de lumière CENTRALE et BRIGHT */
-        radial-gradient(circle at 50% 40%,     /* Position plus haute */
-            rgba(120, 220, 130, 0.4) 0%,      /* PLUS LUMINEUX */
-            rgba(80, 180, 90, 0.3) 30%,       /* PLUS LUMINEUX */
-            rgba(60, 150, 70, 0.2) 60%,       /* PLUS LUMINEUX */
-            transparent 100%
-        );
-    background-size: cover, cover, 100% 100%;
-    background-position: center, center, center;
-    background-blend-mode: multiply, overlay, normal;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    overflow: hidden;
-    transition: opacity 1s ease;
-    /* Effet de lumière douce */
-    box-shadow: 
-        inset 0 0 80px rgba(255, 255, 255, 0.1),  /* LUMIÈRE BLANCHE */
-        inset 0 0 150px rgba(100, 200, 100, 0.3); /* LUMIÈRE VERTE */
-}
 
-.welcome-page.hidden {
-    opacity: 0;
-    pointer-events: none;
-    z-index: -1;
-}
-
-.welcome-container {
-    text-align: center;
-    max-width: 600px;
-    padding: 40px;
-    position: relative;
-    z-index: 2;
-}
-
-/* 🌟 LAMPE INTERACTIVE */
-.lamp-container {
-    position: relative;
-    margin: 0 auto 50px;
-    height: 300px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.lamp-container:hover {
-    transform: scale(1.05);
-}
-
-.lamp {
-    position: relative;
-    width: 80px;
-    margin: 0 auto;
-}
-
-.lamp-base {
-    width: 60px;
-    height: 30px;
-    background: linear-gradient(135deg, #8B4513, #A0522D);
-    border-radius: 50% 50% 40% 40%;
-    margin: 0 auto;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-}
-
-.lamp-neck {
-    width: 15px;
-    height: 80px;
-    background: linear-gradient(135deg, #D2691E, #8B4513);
-    margin: 0 auto;
-    position: relative;
-}
-
-.lamp-shade {
-    width: 120px;
-    height: 100px;
-    background: linear-gradient(135deg, #654321, #8B4513);
-    border-radius: 50% 50% 40% 40%;
-    margin: -20px auto 0;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 
-        inset 0 -10px 20px rgba(0, 0, 0, 0.3),
-        0 8px 25px rgba(0, 0, 0, 0.4);
-    transition: all 0.8s ease;
-}
-
-/* Lumière éteinte (par défaut) */
-.lamp-light {
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    background: radial-gradient(circle, rgba(255, 215, 0, 0) 0%, rgba(255, 215, 0, 0) 100%);
-    border-radius: 50%;
-    transition: all 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
-
-/* Lumière allumée */
-.lamp.on .lamp-light {
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, 
-        rgba(255, 255, 200, 0.9) 0%,
-        rgba(255, 255, 180, 0.6) 20%,
-        rgba(255, 255, 160, 0.4) 40%,
-        rgba(255, 255, 140, 0.2) 60%,
-        rgba(255, 255, 120, 0.1) 80%,
-        transparent 100%
-    );
-    box-shadow: 0 0 150px rgba(255, 255, 100, 0.7);
-}
-
-.lamp.on .lamp-shade {
-    background: linear-gradient(135deg, #FFD700, #FFA500);
-    box-shadow: 
-        inset 0 -10px 20px rgba(255, 215, 0, 0.3),
-        0 8px 40px rgba(255, 215, 0, 0.5);
-    animation: lampGlow 2s infinite alternate;
-}
-
-@keyframes lampGlow {
-    from { 
-        filter: brightness(1) drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
-    }
-    to { 
-        filter: brightness(1.3) drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
-    }
-}
-
-.lamp-chain {
-    position: absolute;
-    top: 100px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.5rem;
-    color: #FFD700;
-    animation: chainSway 3s infinite ease-in-out;
-}
-
-@keyframes chainSway {
-    0%, 100% { transform: translateX(-50%) rotate(0deg); }
-    25% { transform: translateX(-50%) rotate(-8deg); }
-    75% { transform: translateX(-50%) rotate(8deg); }
-}
-
-.pull-chain {
-    position: absolute;
-    top: 180px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 2.5rem;
-    color: #FFD700;
-    animation: pullHint 2s infinite;
-    cursor: pointer;
-    z-index: 2;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-    transition: all 0.3s ease;
-}
-
-.pull-chain:hover {
-    transform: translateX(-50%) scale(1.2);
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-}
-
-@keyframes pullHint {
-    0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
-    50% { transform: translateX(-50%) translateY(15px); opacity: 0.7; }
-}
-
-/* CONTENU DE BIENVENUE */
-.welcome-content h1 {
-    color: #FFD700;
-    font-size: 2.8rem;
-    margin-bottom: 25px;
-    text-shadow: 
-        0 2px 15px rgba(255, 215, 0, 0.4),
-        0 4px 20px rgba(0, 0, 0, 0.3);
-    animation: titleFloat 4s infinite ease-in-out;
-}
-
-@keyframes titleFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
-
-.welcome-text {
-    color: #E0E0E0;
-    font-size: 1.4rem;
-    line-height: 1.6;
-    margin-bottom: 30px;
-    opacity: 0.9;
-    font-weight: 300;
-}
-
-/* STYLE POUR LA CASE HINT/INDICE */
-/* STYLE POUR LA CASE HINT/INDICE - VERSION HAUTE */
-.hint {
-    display: block;
-    margin-top: 8px; /* TRÈS RÉDUIT */
-    text-align: center;
-    animation: subtle-pulse 2s infinite;
-    position: relative;
-    top: -20px; /* LÈGEMENT REMONTÉ */
-}
-
-.hint span {
-    background-color: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 215, 0, 0.5);
-    border-radius: 50px;
-    padding: 8px 18px; /* ENCORE PLUS PETIT */
-    font-size: 13px; /* PLUS PETIT */
-    color: #FFEAA7;
-    font-weight: 600;
-    display: inline-block;
-    box-shadow: 
-        0 4px 10px rgba(0, 0, 0, 0.2),
-        inset 0 0 8px rgba(255, 215, 0, 0.2);
-    transition: all 0.3s ease;
-}
-/* Animation de pulsation subtile */
-@keyframes subtle-pulse {
-    0%, 100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    50% {
-        opacity: 0.8;
-        transform: translateY(-3px);
-    }
-}
-
-/* Effet au survol */
-.hint span:hover {
-    background-color: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 215, 0, 0.8);
-    transform: scale(1.05);
-    box-shadow: 
-        0 6px 20px rgba(0, 0, 0, 0.3),
-        inset 0 0 15px rgba(255, 215, 0, 0.3);
-}
-
-/* Silhouettes d'arbres */
-.forest-silhouette {
-    position: absolute;
-    bottom: -80px;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    opacity: 0.2;
-    z-index: 1;
-}
-
-.tree-silhouette {
-    font-size: 4rem;
-    animation: treeFloat 10s infinite ease-in-out;
-    filter: brightness(0.3);
-}
-
-.tree-silhouette:nth-child(1) { animation-delay: 0s; }
-.tree-silhouette:nth-child(2) { animation-delay: 2.5s; }
-.tree-silhouette:nth-child(3) { animation-delay: 5s; }
-.tree-silhouette:nth-child(4) { animation-delay: 7.5s; }
-
-@keyframes treeFloat {
-    0%, 100% { transform: translateY(0) scale(1); opacity: 0.2; }
-    50% { transform: translateY(-25px) scale(1.1); opacity: 0.4; }
-}
-
-/* Effet d'expansion de la lumière */
-.light-expand {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    width: 100px;
-    height: 100px;
-    background: radial-gradient(circle, rgba(255, 255, 200, 0.9), transparent 70%);
-    border-radius: 50%;
-    opacity: 0;
-    z-index: 1;
-    transition: all 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
-
-.light-expand.active {
-    transform: translate(-50%, -50%) scale(15);
-    opacity: 1;
-    width: 100vw;
-    height: 100vh;
-}
-
-/* ============================================
-   PAGE PRINCIPALE
-   ============================================ */
-.main-page {
-    display: none;
-    animation: fadeIn 2s ease;
-}
-
-.main-page.active {
-    display: block;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* Bouton pour retourner à la lampe */
-.btn-lamp {
+/* Bouton retour à l'accueil */
+.btn-home {
     margin-top: 20px;
-    padding: 12px 24px;
-    background: linear-gradient(135deg, #FFD700, #FFA500);
-    color: #333;
-    border: none;
+    padding: 12px 30px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: var(--border-radius);
     cursor: pointer;
     font-weight: 600;
@@ -870,14 +657,15 @@ footer p {
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    backdrop-filter: blur(5px);
 }
 
-.btn-lamp:hover {
+.btn-home:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
-    background: linear-gradient(135deg, #FFA500, #FF8C00);
 }
 
 /* ============================================
@@ -900,6 +688,7 @@ footer p {
     header > p {
         font-size: 1.1rem;
         gap: 10px;
+        flex-direction: column;
     }
     
     .search-container {
@@ -957,60 +746,39 @@ footer p {
         font-size: 0.65rem;
     }
     
-    /* Page lampe */
+    /* Page d'accueil */
     .welcome-container {
-        padding: 20px;
+        padding: 30px 20px;
         max-width: 90%;
+        margin: 20px;
     }
     
     .welcome-content h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
     }
     
     .welcome-text {
         font-size: 1.2rem;
     }
     
-    .lamp-container {
-        height: 250px;
-        margin-bottom: 30px;
+    .hero-image {
+        gap: 30px;
+        margin: 30px 0;
     }
     
-    .lamp-shade {
-        width: 100px;
-        height: 80px;
+    .tree-icon {
+        font-size: 3.5rem;
     }
     
-    .tree-silhouette {
-        font-size: 3rem;
+    .btn-enter {
+        padding: 15px 35px;
+        font-size: 1.1rem;
+        width: 90%;
     }
     
-    /* Hint responsive */
-    /* STYLE POUR LA CASE HINT/INDICE - VERSION HAUTE */
-.hint {
-    display: block;
-    margin-top: 8px; /* TRÈS RÉDUIT */
-    text-align: center;
-    animation: subtle-pulse 2s infinite;
-    position: relative;
-    top: -5px; /* LÈGEMENT REMONTÉ */
-}
-
-.hint span {
-    background-color: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 215, 0, 0.5);
-    border-radius: 50px;
-    padding: 8px 18px; /* ENCORE PLUS PETIT */
-    font-size: 13px; /* PLUS PETIT */
-    color: #FFEAA7;
-    font-weight: 600;
-    display: inline-block;
-    box-shadow: 
-        0 4px 10px rgba(0, 0, 0, 0.2),
-        inset 0 0 8px rgba(255, 215, 0, 0.2);
-    transition: all 0.3s ease;
-}
+    .hint span {
+        font-size: 0.9rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1042,56 +810,29 @@ footer p {
         font-size: 1.1rem;
     }
     
-    /* Page lampe */
+    /* Page d'accueil */
     .welcome-content h1 {
-        font-size: 1.7rem;
+        font-size: 1.8rem;
     }
     
     .welcome-text {
+        font-size: 1.1rem;
+    }
+    
+    .hero-image {
+        gap: 20px;
+    }
+    
+    .tree-icon {
+        font-size: 3rem;
+    }
+    
+    .btn-enter {
+        padding: 12px 25px;
         font-size: 1rem;
     }
     
-    .lamp-container {
-        height: 200px;
+    .hint span {
+        font-size: 0.8rem;
     }
-    
-    .pull-chain {
-        font-size: 2rem;
-        top: 150px;
-    }
-    
-    .forest-silhouette {
-        bottom: -60px;
-    }
-    
-    .tree-silhouette {
-        font-size: 2.5rem;
-    }
-    
-    /* Hint responsive */
-    /* STYLE POUR LA CASE HINT/INDICE - VERSION HAUTE */
-.hint {
-    display: block;
-    margin-top: 8px; /* TRÈS RÉDUIT */
-    text-align: center;
-    animation: subtle-pulse 2s infinite;
-    position: relative;
-    top: -5px; /* LÈGEMENT REMONTÉ */
-}
-
-.hint span {
-    background-color: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 215, 0, 0.5);
-    border-radius: 50px;
-    padding: 8px 18px; /* ENCORE PLUS PETIT */
-    font-size: 13px; /* PLUS PETIT */
-    color: #FFEAA7;
-    font-weight: 600;
-    display: inline-block;
-    box-shadow: 
-        0 4px 10px rgba(0, 0, 0, 0.2),
-        inset 0 0 8px rgba(255, 215, 0, 0.2);
-    transition: all 0.3s ease;
-}
 }

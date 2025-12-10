@@ -1,97 +1,82 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/vite.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🌳 Arbres Remarquables de Paris</title>
     <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
-    <!-- 🌟 PAGE D'ACCUEIL AVEC LAMPE -->
+    <!-- 🌟 PAGE D'ACCUEIL SIMPLIFIÉE -->
     <div id="welcome-page" class="welcome-page">
         <div class="welcome-container">
-            <!-- Lampe interactive -->
-            <div class="lamp-container" id="lamp-container">
-                <div class="lamp" id="lamp">
-                    <div class="lamp-base"></div>
-                    <div class="lamp-neck"></div>
-                    <div class="lamp-shade">
-                        <div class="lamp-light"></div>
-                    </div>
-                    <div class="lamp-chain">⚪</div>
-                </div>
-                <div class="pull-chain" id="pull-chain">↓</div>
-            </div>
-            
-            <!-- Message d'accueil -->
             <div class="welcome-content">
                 <h1>🌳 Les Arbres Remarquables de Paris</h1>
                 <p class="welcome-text">
-                    Tirez sur la chaîne pour illuminer la forêt<br>
-                    et découvrir les géants verts de la capitale
+                    Découvrez les géants verts qui peuplent la capitale française.<br>
+                    Un patrimoine naturel à préserver pour les générations futures.
                 </p>
-                <div class="hint">
-                    <span>💡 Cliquez sur la lampe ou tirez la chaîne</span>
+                
+                <div class="hero-image">
+                    <div class="tree-icon">🌲</div>
+                    <div class="tree-icon">🌳</div>
+                    <div class="tree-icon">🌴</div>
                 </div>
-            </div> 
-            
-            <!-- Silhouettes d'arbres -->
-            <div class="forest-silhouette">
-                <div class="tree-silhouette">🌲</div>
-                <div class="tree-silhouette">🌳</div>
-                <div class="tree-silhouette">🌴</div>
-                <div class="tree-silhouette">🎄</div>
+                
+                <button id="enterBtn" class="btn-enter">
+                    🌿 Explorer la forêt parisienne
+                </button>
+                
+                <div class="hint">
+                    <span>Cliquez pour découvrir les arbres remarquables</span>
+                </div>
             </div>
         </div>
-        
-        <!-- Effet de transition -->
-        <div class="light-expand" id="light-expand"></div>
     </div>
-    
+
     <!-- 📊 PAGE PRINCIPALE (initialement cachée) -->
     <div id="app" class="main-page">
         <header>
             <h1>🌳🏛️ Les Arbres Remarquables de Paris 🏛️🌳</h1>
             <p>📊 Explorez | 🌿 Découvrez | 💚 Préservez le patrimoine vert de la capitale</p>
         </header>
-        
+
         <main>
             <section class="controls">
                 <div class="search-container">
                     <input 
                         type="text" 
                         id="searchInput" 
-                        placeholder="Rechercher un arbre (chêne, érable, tilleul...)"
+                        placeholder="Rechercher un arbre (chêne, érable, tilleul...)" 
                         aria-label="Rechercher"
                     />
-                    <button id="searchBtn" class="btn btn-primary">
-                        🔍 Rechercher
-                    </button>
+                    <button id="searchBtn" class="btn btn-primary"> 🔍 Rechercher </button>
                 </div>
-                
                 <div class="pagination-info">
                     <span id="resultsCount">Chargement...</span>
                 </div>
             </section>
-            
+
             <section id="dataContainer" class="data-grid">
                 <!-- Les données s'afficheront ici dynamiquement -->
             </section>
-            
+
             <div class="load-more-container">
                 <button id="loadMoreBtn" class="btn btn-secondary" style="display: none;">
                     ⬇️ Charger plus d'arbres
                 </button>
             </div>
-            
+
             <footer>
-                <p>Données fournies par <a href="https://opendata.paris.fr" target="_blank">OpenData Paris</a></p>
-                <button id="backToLamp" class="btn-lamp">🏮 Revivre l'expérience</button>
+                <p>Données fournies par 
+                    <a href="https://opendata.paris.fr" target="_blank">OpenData Paris</a>
+                </p>
+                <button id="backToHome" class="btn-home">← Retour à l'accueil</button>
             </footer>
         </main>
     </div>
-    
+
     <script type="module" src="/src/main.js"></script>
 </body>
 </html>
